@@ -7,13 +7,8 @@ public class ScoreCounter
     public void AddCoin(Coin coin)
     {
         if (coin != null)
-        {
             _score += coin.CoinValue;
-        }
     }
 
-    public void ResetScore()
-    {
-        _score = 0;
-    }
+    public void ResetScore() => _score = 0;
 }

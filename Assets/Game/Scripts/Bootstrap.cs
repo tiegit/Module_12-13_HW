@@ -3,11 +3,11 @@ using UnityEngine;
 public class Bootstrap : MonoBehaviour
 {
     [SerializeField] private Character _character;
-    [SerializeField] private HeadPointer _headPointer;
 
     [SerializeField, Space(10)] private TargetFollower _cameraBase;
 
     [SerializeField, Space(10)] private Game _game;
+    [SerializeField] private float _gameDurationInSeconds = 60;
 
     [SerializeField, Space(10)] private Coins _coins;
 
@@ -27,14 +27,14 @@ public class Bootstrap : MonoBehaviour
         _cameraObjectRotator = _cameraBase.GetComponent<ObjectRotator>();
         _cameraObjectRotator.Initialize(_playerInput);
 
-        _character.Initialize(_playerInput, _headPointer, _scoreCounter, _coinsContainer, _cameraBase);
+        _character.Initialize(_playerInput, _scoreCounter, _coinsContainer, _cameraBase);
 
-        _game = new Game(_character, _coinsContainer, _scoreCounter);
+        _game = new Game(_playerInput, _character, _coinsContainer, _scoreCounter, _gameDurationInSeconds);        
     }
 
     private void Update()
     {
         _playerInput.CustomUpdate();
-        _game.CustomUpdate();
+        _game.CustomUpdate(Time.deltaTime);
     }
 }

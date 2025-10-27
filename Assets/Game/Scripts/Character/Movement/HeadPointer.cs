@@ -1,35 +1,36 @@
 using UnityEngine;
 
-public class HeadPointer : MonoBehaviour
+public class HeadPointer
 {
     private const float CheckDistanceOffset = 1.2f;
 
-    [SerializeField] private CoinsContainer _coinsContainer;
-    [SerializeField] private float _rotationSpeed = 100f;
+    private Transform _headTransform;
+    private CoinsContainer _coinsContainer;
+    private float _rotationSpeed;
 
-    public void Initialize(CoinsContainer coinsContainer)
+    public HeadPointer(Transform headTransform, CoinsContainer coinsContainer, float rotationSpeed)
     {
+        _headTransform = headTransform;
         _coinsContainer = coinsContainer;
+        _rotationSpeed = rotationSpeed;
     }
 
-    private void Update()
+    public void CustomUpdate(float deltaTime)
     {
-        Coin closestCoin = _coinsContainer.GetClosestCoin(transform.position);
+        Coin closestCoin = _coinsContainer.GetClosestCoin(_headTransform.position);
 
         if (closestCoin != null)
         {
-            float distance = Vector3.Distance(transform.position, closestCoin.transform.position);
+            float distance = Vector3.Distance(_headTransform.position, closestCoin.transform.position);
 
             if (distance >= CheckDistanceOffset)
             {
-                Debug.DrawLine(transform.position, closestCoin.transform.position);
-
-                Vector3 toTargetDirection = closestCoin.transform.position - transform.position;
+                Vector3 toTargetDirection = closestCoin.transform.position - _headTransform.position;
                 Vector3 toTargetDirectionXZ = new Vector3(toTargetDirection.x, 0, toTargetDirection.z);
 
                 Quaternion targetRotation = Quaternion.LookRotation(toTargetDirectionXZ);
 
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+                _headTransform.rotation = Quaternion.RotateTowards(_headTransform.rotation, targetRotation, _rotationSpeed * deltaTime);
             }
         }
     }

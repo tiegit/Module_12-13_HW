@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CoinsContainer
 {
-    [SerializeField] private List<Coin> _coins = new List<Coin>();
+    private List<Coin> _coins = new List<Coin>();
 
     private List<Coin> _startCoins = new List<Coin>();
 
@@ -34,19 +34,15 @@ public class CoinsContainer
 
         return closestCoin;
     }
-    public int GetCoinsCount()
-    {
-        return _coins.Count;
-    }
+
+    public int GetCoinsCount() => _coins.Count;
 
     public void ResetCoinsContainer()
     {
         _coins = new List<Coin>(_startCoins);
 
         foreach (Coin coin in _coins)
-        {
             coin.gameObject.SetActive(true);
-        }
     }
 
     public void RemoveCoin(Coin coin)
@@ -54,7 +50,12 @@ public class CoinsContainer
         if (coin != null)
         {
             coin.gameObject.SetActive(false);
+
             _coins.Remove(coin);
+
+            int droppedCoinsCount = _startCoins.Count - _coins.Count;
+
+            Debug.Log($"<color=white>Собрано {droppedCoinsCount} монеты из {_startCoins.Count}</color>");
         }
     }
 }

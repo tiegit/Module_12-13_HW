@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-internal class DirectionalRotator
+public class DirectionalRotator
 {
     private PlayerInput _playerInput;
     private Rigidbody _rigidbody;
-    private readonly TargetFollower _targetFollower;
+    private TargetFollower _targetFollower;
     private float _rotationSpeed;
 
     private Transform _targetCenter;

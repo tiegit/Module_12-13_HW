@@ -6,10 +6,7 @@ public class ObjectRotator : MonoBehaviour
 
     private PlayerInput _playerInput;
 
-    public void Initialize(PlayerInput playerInput)
-    {
-        _playerInput = playerInput;
-    }
+    public void Initialize(PlayerInput playerInput) => _playerInput = playerInput;
 
     private void Update()
     {

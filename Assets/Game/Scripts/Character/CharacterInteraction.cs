@@ -40,8 +40,5 @@ public class CharacterInteraction : MonoBehaviour
         }
     }
 
-    public void ResetGroundFlag()
-    {
-        _isGrounded = false;
-    }
+    public void ResetGroundFlag() => _isGrounded = false;
 }
