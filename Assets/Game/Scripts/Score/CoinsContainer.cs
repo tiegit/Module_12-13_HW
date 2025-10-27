@@ -5,9 +5,12 @@ public class CoinsContainer
 {
     [SerializeField] private List<Coin> _coins = new List<Coin>();
 
+    private List<Coin> _startCoins = new List<Coin>();
+
     public CoinsContainer(IEnumerable<Coin> coins)
     {
         _coins = new List<Coin>(coins);
+        _startCoins = new List<Coin>(coins);
     }
 
     public Coin GetClosestCoin(Vector3 point)
@@ -31,11 +34,26 @@ public class CoinsContainer
 
         return closestCoin;
     }
+    public int GetCoinsCount()
+    {
+        return _coins.Count;
+    }
+
+    public void ResetCoinsContainer()
+    {
+        _coins = new List<Coin>(_startCoins);
+
+        foreach (Coin coin in _coins)
+        {
+            coin.gameObject.SetActive(true);
+        }
+    }
 
     public void RemoveCoin(Coin coin)
     {
         if (coin != null)
         {
+            coin.gameObject.SetActive(false);
             _coins.Remove(coin);
         }
     }

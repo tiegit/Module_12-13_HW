@@ -15,23 +15,26 @@ public class Bootstrap : MonoBehaviour
 
     private ObjectRotator _cameraObjectRotator;
 
-    private CoinsContainer _coinsContainer;
     private ScoreCounter _scoreCounter;
+    private CoinsContainer _coinsContainer;
 
     private void Awake()
     {
         _playerInput = new PlayerInput();
-        _coinsContainer = new CoinsContainer(_coins.CoinsList);
         _scoreCounter = new ScoreCounter();
+        _coinsContainer = new CoinsContainer(_coins.CoinsList);
 
         _cameraObjectRotator = _cameraBase.GetComponent<ObjectRotator>();
-
         _cameraObjectRotator.Initialize(_playerInput);
 
-        _character.Initialize(_playerInput, _cameraBase);
+        _character.Initialize(_playerInput, _headPointer, _scoreCounter, _coinsContainer, _cameraBase);
 
-        _headPointer.Initialize(_coinsContainer);
+        _game = new Game(_character, _coinsContainer, _scoreCounter);
+    }
 
-        _game.Initialize(_character, _playerInput, _scoreCounter);
+    private void Update()
+    {
+        _playerInput.CustomUpdate();
+        _game.CustomUpdate();
     }
 }
