@@ -2,24 +2,25 @@
 
 internal class DirectionalRotator
 {
-    private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
+    private Rigidbody _rigidbody;
     private readonly TargetFollower _targetFollower;
     private float _rotationSpeed;
 
     private Transform _targetCenter;
 
-    public DirectionalRotator(Rigidbody rigidbody, PlayerInput playerInput, TargetFollower targetFollower, float rotationSpeed)
+    public DirectionalRotator(PlayerInput playerInput,
+                              Rigidbody rigidbody,
+                              TargetFollower targetFollower,
+                              float rotationSpeed)
     {
-        _rigidbody = rigidbody;
         _playerInput = playerInput;
+        _rigidbody = rigidbody;
         _targetFollower = targetFollower;
         _rotationSpeed = rotationSpeed;
 
         _targetCenter = _targetFollower.transform;
     }
-
-    public Quaternion CurrentRotation { get; private set; }
 
     public void CustomFixedUpdate()
     {

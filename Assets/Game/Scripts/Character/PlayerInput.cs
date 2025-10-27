@@ -5,10 +5,12 @@ public class PlayerInput
     private const string HorizontalAxis = "Horizontal";
     private const string VerticalAxis = "Vertical";
     private const string MouseX = "Mouse X";
+    private const KeyCode Jump = KeyCode.Space;
 
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
     public float MouseXInput { get; private set; }
+    public bool JumpPressed { get; private set; }
 
     public void CustomUpdate()
     {
@@ -16,5 +18,7 @@ public class PlayerInput
         VerticalInput = Input.GetAxisRaw(VerticalAxis);
 
         MouseXInput = Input.GetAxis(MouseX);
+
+        JumpPressed = Input.GetKeyDown(Jump);
     }
 }
