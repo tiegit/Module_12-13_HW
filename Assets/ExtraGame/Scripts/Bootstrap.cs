@@ -6,6 +6,7 @@ namespace ExtraGame
     {
         [SerializeField] private Character _character;
         [SerializeField] private Ground _ground;
+        [SerializeField] private Transform _startPoint;
 
         [SerializeField, Space(10)] private TargetFollower _cameraBase;
 
@@ -30,7 +31,7 @@ namespace ExtraGame
             _cameraObjectRotator = _cameraBase.GetComponent<ObjectRotator>();
             _cameraObjectRotator.Initialize(_playerInput);
 
-            _character.Initialize(_playerInput, _scoreCounter, _coinsContainer, _cameraBase);
+            _character.Initialize(_startPoint, _playerInput, _scoreCounter, _coinsContainer, _cameraBase);
 
             _ground.Initialize(_playerInput);
 

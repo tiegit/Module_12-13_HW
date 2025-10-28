@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ExtraGame
@@ -56,6 +57,8 @@ namespace ExtraGame
                 _lastLogTime = 0f;
             }
 
+            CheckCharacterAlive();
+
             CheckWin();
         }
 
@@ -87,6 +90,12 @@ namespace ExtraGame
 
             _character.SetPauseToggle(IsPaused);
             _ground.SetPauseToggle(IsPaused);
+        }
+
+        private void CheckCharacterAlive()
+        {
+            if (_character.IsAlive == false)
+                StopGame();
         }
 
         private void CheckWin()
