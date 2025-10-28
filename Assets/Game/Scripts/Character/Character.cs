@@ -1,3 +1,4 @@
+using ExtraGame;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), (typeof(CharacterInteraction)))]
@@ -54,8 +55,7 @@ public class Character : MonoBehaviour
         _rotator.CustomFixedUpdate();
         _jumpHandler.CustomFixedUpdate(_characterInteraction.IsGrounded);
 
-        if (_characterInteraction.IsGrounded)
-            _characterInteraction.ResetGroundFlag();
+        _characterInteraction.CustomFixedUpdate();
     }
 
     public void SetPauseToggle(bool isPause) => _isPaused = isPause;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CharacterInteraction : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class CharacterInteraction : MonoBehaviour
         _scoreCounter = scoreCounter;
     }
 
+    public void CustomFixedUpdate() => ResetGroundFlag();
+
     private void OnCollisionStay(Collision collision)
     {
         foreach (ContactPoint contact in collision.contacts)
@@ -24,6 +27,18 @@ public class CharacterInteraction : MonoBehaviour
             if (Vector3.Dot(contact.normal, Vector3.up) >= _minGroundDotProduct)
             {
                 _isGrounded = true;
+                break;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) >= _minGroundDotProduct)
+            {
+                ResetGroundFlag();
                 break;
             }
         }
@@ -40,5 +55,5 @@ public class CharacterInteraction : MonoBehaviour
         }
     }
 
-    public void ResetGroundFlag() => _isGrounded = false;
+    private void ResetGroundFlag() => _isGrounded = false;
 }
