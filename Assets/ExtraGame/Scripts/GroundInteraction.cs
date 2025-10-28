@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ExtraGame
 {
@@ -13,22 +12,15 @@ namespace ExtraGame
 
         private void OnCollisionEnter(Collision collision)
         {
-            Character character = collision.gameObject.GetComponent<Character>();
-
-            if (character != null)
-            {
-                foreach (ContactPoint contact in collision.contacts)
-                {
-                    if (Vector3.Dot(contact.normal, Vector3.down) >= _minGroundDotProduct)
-                    {
-                        ContactPoint = contact.point;
-                        break;
-                    }
-                }
-            }
+            CollisionProcess(collision);
         }
 
         private void OnCollisionStay(Collision collision)
+        {
+            CollisionProcess(collision);
+        }
+
+        private void CollisionProcess(Collision collision)
         {
             Character character = collision.gameObject.GetComponent<Character>();
 

@@ -55,7 +55,7 @@ public class CoinsContainer
 
             int droppedCoinsCount = _startCoins.Count - _coins.Count;
 
-            Debug.Log($"<color=white>Собрано {droppedCoinsCount} монеты из {_startCoins.Count}</color>");
+            Debug.Log($"<color=white>Собрано {droppedCoinsCount} монет(ы) из {_startCoins.Count}</color>");
         }
     }
 }

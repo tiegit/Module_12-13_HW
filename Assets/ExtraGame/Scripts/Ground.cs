@@ -41,7 +41,7 @@ namespace ExtraGame
                 return;
 
             _groundContactPoint.transform.position = _groundInteraction.ContactPoint;
-            _rigidbody.centerOfMass = transform.InverseTransformPoint(_groundContactPoint.position); // если убрать эту штуку, то вращение будет от центра платформы
+            _rigidbody.centerOfMass = transform.InverseTransformPoint(_groundContactPoint.position); // если закоментить эту штуку, то вращение будет от центра платформы
 
             _rotator.CustomFixedUpdate(_groundContactPoint);
         }
