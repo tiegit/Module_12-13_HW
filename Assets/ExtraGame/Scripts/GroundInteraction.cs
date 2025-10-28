@@ -5,8 +5,11 @@ namespace ExtraGame
 {
     public class GroundInteraction : MonoBehaviour
     {
+        private float _minGroundDotProduct;
+
         public Vector3 ContactPoint { get; private set; } = Vector3.zero;
 
+        public void Initialize(float minGroundDotProduct) => _minGroundDotProduct = minGroundDotProduct;
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -14,7 +17,14 @@ namespace ExtraGame
 
             if (character != null)
             {
-                ContactPoint = collision.contacts[0].point;
+                foreach (ContactPoint contact in collision.contacts)
+                {
+                    if (Vector3.Dot(contact.normal, Vector3.down) >= _minGroundDotProduct)
+                    {
+                        ContactPoint = contact.point;
+                        break;
+                    }
+                }
             }
         }
 
@@ -24,7 +34,14 @@ namespace ExtraGame
 
             if (character != null)
             {
-                ContactPoint = collision.contacts[0].point;
+                foreach (ContactPoint contact in collision.contacts)
+                {
+                    if (Vector3.Dot(contact.normal, Vector3.down) >= _minGroundDotProduct)
+                    {
+                        ContactPoint = contact.point;
+                        break;
+                    }
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ namespace ExtraGame
     public class Ground : MonoBehaviour
     {
         [SerializeField] private float _rotationSpeed;
+        [SerializeField] private float _maxGroundAngleDegrees = 45f;
 
         [SerializeField] private Transform _groundContactPoint;
 
@@ -28,7 +29,10 @@ namespace ExtraGame
             _initialPosition = transform.position;
             _initialRotation = transform.rotation;
 
-            _rotator = new DirectionalRotator(playerInput, _rigidbody, _groundContactPoint, _rotationSpeed);
+            float minGroundDotProduct = Mathf.Cos(_maxGroundAngleDegrees * Mathf.Deg2Rad);
+            _groundInteraction.Initialize(minGroundDotProduct);
+
+            _rotator = new DirectionalRotator(playerInput, _rigidbody, _rotationSpeed);
         }
 
         private void FixedUpdate()
@@ -37,13 +41,14 @@ namespace ExtraGame
                 return;
 
             _groundContactPoint.transform.position = _groundInteraction.ContactPoint;
+            _rigidbody.centerOfMass = transform.InverseTransformPoint(_groundContactPoint.position); // если убрать эту штуку, то вращение будет от центра платформы
 
-            _rotator.CustomFixedUpdate();
+            _rotator.CustomFixedUpdate(_groundContactPoint);
         }
 
         public void SetPauseToggle(bool isPause) => _isPaused = isPause;
 
-        public void ResetCharacter()
+        public void ResetGround()
         {
             _rigidbody.gameObject.SetActive(false);
 

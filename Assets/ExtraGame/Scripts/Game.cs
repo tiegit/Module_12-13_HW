@@ -71,6 +71,7 @@ namespace ExtraGame
         private void RestartGame()
         {
             _character.ResetCharacter();
+            _ground.ResetGround();
             _coinsContainer.ResetCoinsContainer();
             _scoreCounter.ResetScore();
 

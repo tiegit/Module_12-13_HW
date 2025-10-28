@@ -25,9 +25,12 @@ namespace ExtraGame
                 {
                     Vector3 direction = new Vector3(velocity.x, 0, velocity.z).normalized;
 
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    if (direction != Vector3.zero)
+                    {
+                        Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-                    _headTransform.rotation = Quaternion.RotateTowards(_headTransform.rotation, targetRotation, _rotationSpeed * deltaTime);
+                        _headTransform.rotation = Quaternion.RotateTowards(_headTransform.rotation, targetRotation, _rotationSpeed * deltaTime);
+                    }
                 }
             }
         }
